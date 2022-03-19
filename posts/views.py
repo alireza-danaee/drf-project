@@ -1,14 +1,21 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import ListView
 from .models import Post
 from .forms import PostForm
 # Create your views here.
 
 
-def home(request):
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'post_list.html', context)
+# def home(request):
+#     context = {
+#         'posts': Post.objects.all()
+#     }
+#     return render(request, 'post_list.html', context)
+
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'post_list.html'
+    context_object_name = 'posts'
 
 
 

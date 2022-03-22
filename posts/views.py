@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import ListView
+from django.views.generic import ListView , DetailView
 from .models import Post
 from .forms import PostForm
 # Create your views here.
@@ -16,6 +16,32 @@ class PostListView(ListView):
     model = Post
     template_name = 'post_list.html'
     context_object_name = 'posts'
+
+
+class PostDetailView(DetailView):
+    template_name = 'post_detail.html'
+    def get_object(self):
+        pk = self.kwargs.get("pk")
+        return get_object_or_404(Post, pk=pk)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

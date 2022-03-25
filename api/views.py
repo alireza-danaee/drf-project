@@ -5,6 +5,8 @@ from .serializers import PostSerializer , UserSerializer
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAdminUser
 from .permissions import IsSuperUser,IsStaffOrReadOnly,IsAuthorOrReadOnly,IsSuperUserOrIsStaffReadOnly
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -19,11 +21,17 @@ class PostDetailApi(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     # lookup_field = "slug"
-    permission_classes = (IsAuthorOrReadOnly,)
+    # permission_classes = (IsAuthorOrReadOnly,)
 
 
 class UserList(ListCreateAPIView):
-    queryset = User.objects.all()
+    # queryset = User.objects.all()
+    def get_queryset(self):
+        print("-------------------------------------")
+        print(self.request.user)
+        print(self.request.auth)
+        print("-------------------------------------")
+        return User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsSuperUserOrIsStaffReadOnly,)
 
@@ -31,6 +39,14 @@ class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsSuperUser,)
+
+
+class Revoke(APIView):
+
+    def delete(self , request):
+        request.auth.delete()
+        return Response(status=204)
+
 
 
 

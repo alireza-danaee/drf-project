@@ -12,6 +12,7 @@ urlpatterns = [
     path('<int:pk>',views.PostDetailApi.as_view(),name='post-detail'),
     path('users/',views.UserList.as_view(),name='user-list'),
     path('users/<int:pk>',views.UserDetail.as_view(),name='user-detail'),
+    path('revoke/',views.Revoke.as_view(),name='revoke')
    
 
 ]

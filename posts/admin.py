@@ -3,7 +3,7 @@ from .models import Post
 # Register your models here.
 
 class AdminPost(admin.ModelAdmin):
-    list_display = ('text','author','status','created','updated')
+    list_display = ('id','text','author','status','created','updated')
     list_filter = ('status','created','author')
     
 

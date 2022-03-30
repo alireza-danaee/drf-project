@@ -14,8 +14,17 @@ from rest_framework.viewsets import ModelViewSet
 
 
 class PostViewSet(ModelViewSet):
+	
 	queryset = Post.objects.all()
 	serializer_class = PostSerializer
+	filterset_fields = ['status', 'author__username']
+	ordering_fields = ['status', 'created']
+	search_fields = [
+		'text',
+		'author__username',
+		'author__first_name',
+		'author__last_name',
+	]
 
 	def get_permissions(self):
 		if self.action in ['list','create']:

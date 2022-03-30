@@ -10,8 +10,8 @@ app_name = 'api'
 
 
 router = routers.SimpleRouter()
-router.register('users', UserViewSet)
-router.register('', PostViewSet)
+router.register('users', UserViewSet ,basename="users")
+router.register('posts', PostViewSet , basename="posts")
 
 
 urlpatterns = [

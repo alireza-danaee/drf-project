@@ -1,6 +1,7 @@
 from django.urls import path , include,re_path
-from . import views
+from .views import UserViewSet,PostViewSet
 from django.views.generic import TemplateView
+from rest_framework import routers
 
 
 app_name = 'api'
@@ -8,14 +9,11 @@ app_name = 'api'
 
 
 
-urlpatterns = [
-    path('',views.PostListApi.as_view(),name='post-list'),
-    path('<int:pk>',views.PostDetailApi.as_view(),name='post-detail'),
-    path('users/',views.UserList.as_view(),name='user-list'),
-    path('users/<int:pk>',views.UserDetail.as_view(),name='user-detail'),
-    # path('revoke/',views.Revoke.as_view(),name='revoke')
-    
-   
-   
+router = routers.SimpleRouter()
+router.register('users', UserViewSet)
+router.register('', PostViewSet)
 
+
+urlpatterns = [
+    path('' , include(router.urls))
 ]

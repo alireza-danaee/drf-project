@@ -1,7 +1,7 @@
 
-from rest_framework.generics import ListCreateAPIView ,RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView ,RetrieveUpdateDestroyAPIView,RetrieveAPIView
 from posts.models import Post
-from .serializers import PostSerializer , UserSerializer
+from .serializers import PostSerializer ,UserSerializer, AuthorSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAdminUser , AllowAny
 from .permissions import IsSuperUser,IsStaffOrReadOnly,IsAuthorOrReadOnly,IsSuperUserOrIsStaffReadOnly
@@ -45,6 +45,11 @@ class UserViewSet(ModelViewSet):
 		else:
 			permission_classes = [IsSuperUser]
 		return [permission() for permission in permission_classes]
+	
+
+class AuthorView(RetrieveAPIView):
+	queryset = get_user_model().objects.all()
+	serializer_class = AuthorSerializer
 
 
 
